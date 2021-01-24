@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.pic {
+  padding: 20% 20%;
+}
+
 .form-width {
   width:500px;
   text-align:center;

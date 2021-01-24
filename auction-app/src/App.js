@@ -4,7 +4,6 @@ import Routes from './views/route';
 function App() {
   return (
     <div className="App">
-      {/* <div> hello </div> */}
       <Routes></Routes>
     </div>
   );

@@ -14,12 +14,11 @@ export default class Bidding extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/auctions", {
+        fetch("https://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/auctions", {
             method: 'GET',
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             this.setState({
                 auctions: data,
             });
@@ -27,7 +26,6 @@ export default class Bidding extends React.Component {
     }
 
     onClick(evt, auction) {
-        console.log("Open Bid Page")
         this.setState({
             auction: auction,
             bidPage: true,

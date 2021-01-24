@@ -18,12 +18,9 @@ export default class Bid extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('bid history data: ', data)
             this.setState({
                 bidHistory: data,
             })
-            // this.state.bidHistory.push(data)
-            console.log('bidHistory: ', this.state.bidHistory)
         })
 
         url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/currentbid/${this.props.auctionid}`
@@ -32,7 +29,6 @@ export default class Bid extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('currentbid resp: ', data)
             this.setState({
                 highestBid: data.output,
             })
@@ -73,12 +69,9 @@ export default class Bid extends React.Component {
             })
             .then(response => response.json())
             .then(data => {
-                console.log('bid history data: ', data)
                 this.setState({
                     bidHistory: data,
                 })
-                // this.state.bidHistory.push(data)
-                console.log('bidHistory: ', this.state.bidHistory)
             })
 
             url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/currentbid/${this.props.auctionid}`
@@ -87,7 +80,6 @@ export default class Bid extends React.Component {
             })
             .then(response => response.json())
             .then(data => {
-                console.log('currentbid resp: ', data)
                 this.setState({
                     highestBid: data.output,
                 })
