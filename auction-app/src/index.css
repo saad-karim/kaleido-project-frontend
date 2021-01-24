@@ -13,7 +13,7 @@ code {
 }
 
 .pic {
-  padding: 20% 20%;
+  padding: 10% 20%;
 }
 
 .form-width {
@@ -54,4 +54,9 @@ code {
 
 .placebid {
   margin-left: 50%;
+  width: 100%;
+}
+
+.placebid-msg {
+  padding: 1rem;
 }

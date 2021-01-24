@@ -45,7 +45,11 @@ export default class ManageAuction extends React.Component {
             'startingBid': this.state.startingBid,
         }
 
-        fetch("http://skarim-auctionlifecycle.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/start", {
+        this.setState({
+            startContractMsg: `Creating auction...`
+        });
+
+        fetch("https://skarim-auctionlifecycle.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/start", {
             method: 'POST',
             body: JSON.stringify(data),
         })
@@ -64,7 +68,7 @@ export default class ManageAuction extends React.Component {
             'contractAddress': this.state.auctionID,
         }
 
-        fetch("http://skarim-auctionlifecycle.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/close", {
+        fetch("https://skarim-auctionlifecycle.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/close", {
             method: 'POST',
             body: JSON.stringify(req),
         })
@@ -76,7 +80,7 @@ export default class ManageAuction extends React.Component {
             });
         })
 
-        const url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/highestbidder/${this.state.auctionID}`
+        const url = `https://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/highestbidder/${this.state.auctionID}`
         fetch(url, {
             method: 'GET',
         })

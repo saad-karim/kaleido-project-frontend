@@ -4,15 +4,23 @@ export default class Bid extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            "bid": null,
             "highestBid": null,
-            "bidHistory": [{}],
+            "bidHistory": [],
+            "placingBid": false,
         }
         this.componentDidMount = this.componentDidMount.bind(this)
+        this.bidHistory = this.bidHistory.bind(this)
+        this.currentBid = this.currentBid.bind(this)
+        this.placeBid = this.placeBid.bind(this)
     }
 
     componentDidMount() {
-        let url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/bidhistory/${this.props.auctionid}`
+        this.bidHistory()
+        this.currentBid()
+    }
+
+    bidHistory() {
+        const url = `https://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/bidhistory/${this.props.auctionid}`
         fetch(url, {
             method: 'GET',
         })
@@ -22,8 +30,10 @@ export default class Bid extends React.Component {
                 bidHistory: data,
             })
         })
+    }
 
-        url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/currentbid/${this.props.auctionid}`
+    currentBid() {
+        const url = `https://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/currentbid/${this.props.auctionid}`
         fetch(url, {
             method: 'GET',
         })
@@ -51,39 +61,30 @@ export default class Bid extends React.Component {
 
     placeBid(evt) {
         evt.preventDefault()
+
+        this.setState({
+            placingBid: true,
+        });
+
         const data = {
             "user": this.state.user,
             "amount": this.state.bid,
         }
 
-        const url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/placebid/${this.props.auctionid}`
+        const url = `https://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/placebid/${this.props.auctionid}`
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
         })
-        .then(response => response.json())
-        .then(data => {
-            let url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/bidhistory/${this.props.auctionid}`
-            fetch(url, {
-                method: 'GET',
-            })
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    bidHistory: data,
-                })
-            })
+        .then(() => {
+            this.setState({
+                placingBid: false,
+                bid: null,
+                user: null,
+            });
 
-            url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/currentbid/${this.props.auctionid}`
-            fetch(url, {
-                method: 'GET',
-            })
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    highestBid: data.output,
-                })
-            })
+            this.bidHistory()
+            this.currentBid()
         })
     }
 
@@ -95,7 +96,7 @@ export default class Bid extends React.Component {
                     {
                         this.state.bidHistory.map((history, index) => (
                             <div className="bid" key={index}>
-                                {/* <div>Bidder: {history.bidder}</div> */}
+                                <div>Bidder: {history.bidder}</div>
                                 <div>Amount: {history.amount}</div>
                             </div>
                         ))
@@ -103,6 +104,7 @@ export default class Bid extends React.Component {
                 </div>
                 <div className="floatleft">
                     <div className="placebid">
+                        <h3><center>Bid on Item:</center></h3>
                         <div className="padding">Item: {this.props.item}</div>
                         <div className="padding">Starting Bid Price: {this.props.price}</div>
                         <div className="padding">Highest Bid Placed: {this.state.highestBid}</div>
@@ -115,6 +117,9 @@ export default class Bid extends React.Component {
                             </div>
                             <button type="submit" className="btn btn-primary btn-md">Place Bid</button>
                         </form>
+                        <div className="placebid-msg">
+                            {this.state.placingBid ? <center><span>Placing Bid...</span></center> : null }
+                        </div>
                     </div>
                 </div>
             </div>
