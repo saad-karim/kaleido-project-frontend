@@ -38,8 +38,16 @@ code {
   padding: .2rem;
 }
 
+.padding {
+  padding: .2rem;
+}
+
 .bid {
   border: solid;
   border-color: lightgray;
   margin: 2px;
+}
+
+.placebid {
+  margin-left: 50%;
 }

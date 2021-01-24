@@ -80,6 +80,18 @@ export default class Bid extends React.Component {
                 // this.state.bidHistory.push(data)
                 console.log('bidHistory: ', this.state.bidHistory)
             })
+
+            url = `http://skarim-bidding.test-automation1-68e10f583f026529fe7a89da40169ef4-0001.us-south.containers.appdomain.cloud/currentbid/${this.props.auctionid}`
+            fetch(url, {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('currentbid resp: ', data)
+                this.setState({
+                    highestBid: data.output,
+                })
+            })
         })
     }
 
@@ -87,29 +99,31 @@ export default class Bid extends React.Component {
         return (
             <div>
                 <div className="floatleft bidding-history">
-                    <h3>Bidding History</h3>
+                    <h3><center>Bidding Amount History</center></h3>
                     {
                         this.state.bidHistory.map((history, index) => (
                             <div className="bid" key={index}>
-                                <div>Bidder: {history.bidder}</div>
+                                {/* <div>Bidder: {history.bidder}</div> */}
                                 <div>Amount: {history.amount}</div>
                             </div>
                         ))
                     }
                 </div>
                 <div className="floatleft">
-                    <div>Item: {this.props.item}</div>
-                    <div>Starting Bid Price: {this.props.price}</div>
-                    <div>Highest Bid Placed: {this.state.highestBid}</div>
-                    <form className="navbar-form form-width inline" onSubmit={(e) => this.placeBid(e)}>
-                        <div>
-                            <input className="form-control float-left" placeholder="Bid" onChange={evt => this.bidInputValue(evt)} type="text" />
-                        </div>
-                        <div>
-                            <input className="form-control float-left" placeholder="User ID" onChange={evt => this.userInputValue(evt)} type="text" />
-                        </div>
-                        <button type="submit" className="btn btn-primary btn-md">Place Bid</button>
-                    </form>
+                    <div className="placebid">
+                        <div className="padding">Item: {this.props.item}</div>
+                        <div className="padding">Starting Bid Price: {this.props.price}</div>
+                        <div className="padding">Highest Bid Placed: {this.state.highestBid}</div>
+                        <form className="navbar-form form-width inline" onSubmit={(e) => this.placeBid(e)}>
+                            <div>
+                                <input className="form-control float-left" placeholder="Bid" onChange={evt => this.bidInputValue(evt)} type="text" />
+                            </div>
+                            <div>
+                                <input className="form-control float-left" placeholder="User ID" onChange={evt => this.userInputValue(evt)} type="text" />
+                            </div>
+                            <button type="submit" className="btn btn-primary btn-md">Place Bid</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         )
