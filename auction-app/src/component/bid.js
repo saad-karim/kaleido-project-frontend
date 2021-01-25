@@ -105,9 +105,9 @@ export default class Bid extends React.Component {
                 <div className="floatleft">
                     <div className="placebid">
                         <h3><center>Bid on Item:</center></h3>
-                        <div className="padding">Item: {this.props.item}</div>
-                        <div className="padding">Starting Bid Price: {this.props.price}</div>
-                        <div className="padding">Highest Bid Placed: {this.state.highestBid}</div>
+                        <div className="padding"><b>Item: </b>{this.props.item}</div>
+                        <div className="padding"><b>Starting Bid Price: </b>{this.props.price}</div>
+                        <div className="padding"><b>Highest Bid Placed: </b>{this.state.highestBid}</div>
                         <form className="navbar-form form-width inline" onSubmit={(e) => this.placeBid(e)}>
                             <div>
                                 <input className="form-control float-left" placeholder="Bid" onChange={evt => this.bidInputValue(evt)} type="text" />

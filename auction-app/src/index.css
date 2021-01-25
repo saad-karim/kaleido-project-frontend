@@ -13,7 +13,11 @@ code {
 }
 
 .pic {
-  padding: 10% 20%;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .form-width {
@@ -34,7 +38,7 @@ code {
 }
 
 .bidding-history {
-  width: 35%;
+  width: 40%;
 }
 
 .floatleft {
